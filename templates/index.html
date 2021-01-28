@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator | 0.2</title>
+    <link rel="stylesheet" href="{% static 'css_file/style.css'%}">
+</head>
+<body>
+    <section class="maincontainer">
+       <div class="heading_sec">
+             <h2>Calculator |2.0</h2>
+       </div>
+        <form action="" method="POST">
+        {% csrf_token %}
+            <div class="headingcontainer">
+                <input tupe="text" class="previous_data" value="{{invalue}}">
+                <input type="text" name="inputVal" id="inp" value="{{output}}" placeholder="00">
+            </div>
+            <button type="submit" name="sub" class="submit">=</button>
+    </form>
+    <div class="buttons">
+        <button class="clear_btn">AC</button>
+        <button class="clear1_btn">C</button>
+        <button class="oprnumber" onclick="Number('%')">%</button>
+        <button class="oprnumber" onclick="Number('/')">/</button><br>
+        <button class="numberbtn" onclick="Number('7')">7</button>
+        <button class="numberbtn" onclick="Number('8')">8</button>
+        <button class="numberbtn" onclick="Number('9')">9</button>
+        <button class="oprnumber" onclick="Number('*')">*</button><br>
+        <button class="numberbtn" onclick="Number('4')">4</button>
+        <button class="numberbtn" onclick="Number('5')">5</button>
+        <button class="numberbtn" onclick="Number('6')">6</button>
+        <button class="oprnumber" onclick="Number('-')">-</button><br>
+        <button class="numberbtn" onclick="Number('1')">1</button>
+        <button class="numberbtn" onclick="Number('2')">2</button>
+        <button class="numberbtn" onclick="Number('3')">3</button>
+        <button class="oprnumber" onclick="Number('+')">+</button><br>
+        <button class="numberbtn" onclick="Number('0')">0</button>
+        <button class="numberbtn" onclick="Number('00')">00</button>
+        <button class="numberbtn" onclick="Number('.')">.</button>
+        <button class="dblSubmit" >=</button>
+       
+    </div> 
+    </section>
+    <script>
+        let count = 0;
+        const inp = document.querySelector('#inp');
+        const previous_data = document.querySelector('.previous_data');
+        function Number(data)
+        {
+            console.log(data);
+            if (data == "/" || data == "*" || data== "+" || data == "%" || data == "-")
+            {
+                   count++;
+                   
+            }
+            if (count >1)
+            {
+                previous_data.value = "Not valid";
+            }
+            inp.value += String(data);
+            
+        }
+        const clearBtn = document.querySelector('.clear_btn');
+        clearBtn.addEventListener("click",function ()
+        {
+            inp.value = "";
+            previous_data.value = "00";
+            count--;
+        });
+
+        const submit_btn = document.querySelector('.submit');
+        const dblsubmit_btn = document.querySelector('.dblSubmit');
+        dblsubmit_btn.addEventListener("click",function ()
+        {
+            submit_btn.click();
+            
+        });
+
+        const clear1_btn = document.querySelector('.clear1_btn');
+
+        clear1_btn.addEventListener("click",function ()
+        {
+            previous_data.value = "00";
+            count--;
+            y = document.querySelector('#inp').value;
+            document.querySelector('#inp').value = y.substring(0,y.length-1);
+        });
+    </script>
+</body>
+</html>
